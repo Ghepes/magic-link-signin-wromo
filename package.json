@@ -1,0 +1,21 @@
+{
+    "name": "magic-link-signin-wromo",
+    "version": "1.0.0",
+  "description": "A universal magic link sign-in widget with Firebase Authentication. By Ghepes - with ❤️ for Wromo and the web.",
+  "main": "index.js",
+  "unpkg": "wromo-auth-widget.js",
+  "jsdelivr": "wromo-auth-widget.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ghepes/magic-link-signin-wromo.git"
+  },
+  "keywords": [
+    "magic-link",
+    "sign-in",
+    "firebase",
+    "authentication",
+    "widget"
+  ],
+  "author": "Ghepes",
+  "license": "MIT"
+}
