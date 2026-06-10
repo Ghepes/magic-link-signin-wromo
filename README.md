@@ -13,7 +13,7 @@ Add the following script url in header css and js in footer exactly as below (fo
 
 TO HEAD
 ````
-<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.0/styles.css">
 </head>
 ````
 
