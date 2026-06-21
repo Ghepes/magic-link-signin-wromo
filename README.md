@@ -6,14 +6,28 @@ Signin with magic links by firebase on static page - widgets by wromo
 
 <Important: in the static model KEY is entered in json format auth-config.json : KEY ID must be strictly blocked to respond only on your domain!
 
-
+## v1.0.1
 
 ## Configuration steps:
-Add the following script url in header css and js in footer exactly as below (for NPM package installations no need for auth-config.json file: Attach to .env file)
+To RETURN URL Add the following script url to head o help your redirect: 
 
 TO HEAD
 ````
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.0/styles.css">
+<script>
+  (function() {
+    // 1. We are looking for the exact key saved by Script 
+    const isUserLoggedIn = localStorage.getItem('wromo_uid'); 
+    
+    if (!isUserLoggedIn) {
+      window.location.replace('http://localhost/login/'); 
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('auth-ready');
+      });
+    }
+  })();
+</script>
+
 </head>
 ````
 
@@ -21,11 +35,11 @@ TO BODY
 ````
   <div 
     data-wromo-auth 
-    data-wromo-auth-config="./auth-config.json"  // <-- Your file firebase KEY >
-    data-wromo-auth-redirect="https://RETURN_URL.com">       // <-- Your URL Return Page >
+    data-wromo-auth-config="./auth-config.json"  // <-- Your file firebase KEY or .ENV -->
+    data-wromo-auth-redirect="https://RETURN_URL.com">   // <-- Your URL Return Page -->
   </div>
 
-  <script type="module" src="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.0/wromo-auth-widget.js" defer=""></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.1/wromo-auth-widget.js" defer=""></script>
 
 </body>
 </html>
