@@ -209,6 +209,7 @@ async function initFirebaseAuth() {
           elements.card.classList.add("wa-success-state");
           elements.title.textContent = "Check your inbox!";
           elements.subtitle.textContent = `A magic link has been sent to ${email}.`;
+          elements.subtitle.textContent += `           Check Spam Email too!`;
 
         } catch (error) {
           showMessage(elements, error.message, "error");

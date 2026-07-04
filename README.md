@@ -5,6 +5,12 @@ Signin with magic links by firebase on static page - widgets by wromo
 ## widgets includes full style preview login/register page to connect firebase.
 
 ## Important: in the static model KEY json format auth-config.json : KEY ID must be strictly blocked to respond only on your domain!
+
+
+## v1.0.4 
+Check Spam Email too!
+
+
 ## v1.0.3 info Readme.md
 * ## to head
 ````
@@ -34,7 +40,7 @@ Signin with magic links by firebase on static page - widgets by wromo
     data-wromo-auth-redirect="https://mydomain.com.com/login/">   // <-- Your URL Return Page -->
   </div>
 
-  <script type="module" src="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.3/wromo-auth-widget.js" defer=""></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.4/wromo-auth-widget.js" defer=""></script>
 
 </body>
 </html>
