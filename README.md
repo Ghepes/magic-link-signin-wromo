@@ -4,12 +4,16 @@ Signin with magic links by firebase on static page - widgets by wromo
 
 ## widgets includes full style preview login/register page to connect firebase.
 
-<Important: in the static model KEY is entered in json format auth-config.json : KEY ID must be strictly blocked to respond only on your domain!
+<Important: in the static model KEY json format auth-config.json : KEY ID must be strictly blocked to respond only on your domain!
+
+## v1.0.2
+Magic link design improvement
+
 
 ## v1.0.1
 
 ## Configuration steps:
-To RETURN URL Add the following script url to head o help your redirect: 
+Add the following script to head to help your redirect automatically (Only for Dashbord interface): 
 
 TO HEAD
 ````
@@ -29,9 +33,9 @@ TO HEAD
 </script>
 
 </head>
-````
+````END automatically
 
-TO BODY
+TO BODY insertion cdn
 ````
   <div 
     data-wromo-auth 
