@@ -8,6 +8,8 @@ Signin with magic links by firebase on static page - widgets by wromo
 
 ## v1.0.2
 Magic link design improvement
+HIDE THE FORM AND SHOW THE MESSAGE
+![FORM AND SHOW THE MESSAGE](/img/image-3.png)
 
 
 ## v1.0.1

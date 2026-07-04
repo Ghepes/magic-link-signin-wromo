@@ -28,6 +28,12 @@ const INJECTED_STYLE = [
   "  padding: 32px 28px;",
   "  box-shadow: var(--wa-shadow);",
   "  text-align: center;",
+  "  transition: all 0.3s ease;",
+  "}",
+  ".wa-icon-success {",
+  "  font-size: 48px;",
+  "  margin-bottom: 16px;",
+  "  display: none;",
   "}",
   ".wa-title {",
   "  margin: 0 0 8px;",
@@ -72,7 +78,12 @@ const INJECTED_STYLE = [
   "  font: 500 0.9rem/1.4 'Trebuchet MS', sans-serif;",
   "}",
   ".wa-status.success { color: var(--wa-accent); }",
-  ".wa-status.error { color: #d93025; }"
+  ".wa-status.error { color: #d93025; }",
+  "/* Clase pentru starea de succes */",
+  ".wa-success-state .wa-icon-success { display: block; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }",
+  ".wa-success-state .wa-title { color: var(--wa-accent); }",
+  ".wa-success-state .wa-subtitle { margin-bottom: 0; }",
+  "@keyframes popIn { 0% { transform: scale(0); } 100% { transform: scale(1); } }"
 ].join("\n");
 
 function injectStyles() {
@@ -87,9 +98,10 @@ function createAuthMarkup(target) {
   const wrapper = document.createElement("div");
   wrapper.className = "wa-mount";
   wrapper.innerHTML = `
-    <div class="wa-card">
-      <h2 class="wa-title">Secure Login</h2>
-      <p class="wa-subtitle">We'll send a magic link to your inbox. No password needed.</p>
+    <div class="wa-card" id="wa-card-main">
+      <div class="wa-icon-success">✉️</div>
+      <h2 class="wa-title" id="wa-title-text">Secure Login</h2>
+      <p class="wa-subtitle" id="wa-subtitle-text">We'll send a magic link to your inbox. No password needed.</p>
       <form class="wa-form" id="wa-login-form">
         <input type="email" id="wa-email" class="wa-input" placeholder="name@domain.com" required autocomplete="email">
         <button type="submit" id="wa-submit" class="wa-btn">Send Magic Link</button>
@@ -99,6 +111,9 @@ function createAuthMarkup(target) {
   `;
   target.appendChild(wrapper);
   return {
+    card: wrapper.querySelector("#wa-card-main"),
+    title: wrapper.querySelector("#wa-title-text"),
+    subtitle: wrapper.querySelector("#wa-subtitle-text"),
     form: wrapper.querySelector("#wa-login-form"),
     emailInput: wrapper.querySelector("#wa-email"),
     submitBtn: wrapper.querySelector("#wa-submit"),
@@ -187,11 +202,16 @@ async function initFirebaseAuth() {
         try {
           await sendSignInLinkToEmail(auth, email, actionCodeSettings);
           window.localStorage.setItem('emailForSignIn', email);
-          showMessage(elements, "Check your inbox for the magic link!", "success");
-          elements.form.reset();
+          // --- HIDE THE FORM AND SHOW THE MESSAGE ---
+          elements.form.style.display = "none"; // Force hide form
+          elements.messageBox.style.display = "none"; // Hide the bottom status text (the green one you had)
+          
+          elements.card.classList.add("wa-success-state");
+          elements.title.textContent = "Check your inbox!";
+          elements.subtitle.textContent = `A magic link has been sent to ${email}.`;
+
         } catch (error) {
           showMessage(elements, error.message, "error");
-        } finally {
           elements.submitBtn.disabled = false;
           elements.submitBtn.textContent = "Send Magic Link";
         }
