@@ -4,7 +4,42 @@ Signin with magic links by firebase on static page - widgets by wromo
 
 ## widgets includes full style preview login/register page to connect firebase.
 
-<Important: in the static model KEY json format auth-config.json : KEY ID must be strictly blocked to respond only on your domain!
+## Important: in the static model KEY json format auth-config.json : KEY ID must be strictly blocked to respond only on your domain!
+## v1.0.3 info Readme.md
+* ## to head
+````
+<script>
+  (function() {
+    // 1. We are looking for the exact key saved by Script 
+    const isUserLoggedIn = localStorage.getItem('wromo_uid'); 
+    
+    if (!isUserLoggedIn) {
+      window.location.replace('http://localhost/login/'); 
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.classList.add('auth-ready');
+      });
+    }
+  })();
+</script>
+
+</head>
+````
+* ## to end body
+
+````
+  <div 
+    data-wromo-auth 
+    data-wromo-auth-config="./auth-config.json" 
+    data-wromo-auth-redirect="https://mydomain.com.com/login/">   // <-- Your URL Return Page -->
+  </div>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/magic-link-signin-wromo@1.0.3/wromo-auth-widget.js" defer=""></script>
+
+</body>
+</html>
+
+````
 
 ## v1.0.2
 Magic link design improvement
@@ -35,13 +70,16 @@ TO HEAD
 </script>
 
 </head>
-````END automatically
+````
+END automatically
+
 
 TO BODY insertion cdn
+
 ````
   <div 
     data-wromo-auth 
-    data-wromo-auth-config="./auth-config.json"  // <-- Your file firebase KEY or .ENV -->
+    data-wromo-auth-config="./auth-config.json" 
     data-wromo-auth-redirect="https://RETURN_URL.com">   // <-- Your URL Return Page -->
   </div>
 
@@ -49,10 +87,8 @@ TO BODY insertion cdn
 
 </body>
 </html>
+
 ````
-
-
-Congratulations!
 
 ![Preview webpage signin with magic links](/img/image.png)
 
@@ -79,5 +115,5 @@ Congratulations!
 ![Set your Google Auth Platform -> Clients to respond only to your domain](/img/domain.png)
 
 
+## Congratulations!
 
----
