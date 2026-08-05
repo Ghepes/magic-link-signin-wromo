@@ -132,8 +132,7 @@ async function initFirebaseAuth() {
 
   injectStyles();
 
-  // Import Firebase Auth dynamically, without build tools
-  // Import Firebase Auth dynamically, using the new version 12.14.0
+  // Import Firebase Auth dynamically,  without build tools, using the new version 12.14.0
   const { initializeApp } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js");
   const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js");
 
@@ -170,9 +169,19 @@ async function initFirebaseAuth() {
           
           // 2. Extract the permanent UID provided by Firebase
           const userUid = result.user.uid;
+          const userEmail = result.user.email;
+
+          // 2.1 Extract Name from email (@)
+          let userName = "User " + userUid.substring(0, 5); // Fallback de siguranta
+          if (userEmail && userEmail.includes('@')) {
+              let extractedName = userEmail.split('@')[0];
+              userName = extractedName.charAt(0).toUpperCase() + extractedName.slice(1); // Prima litera mare
+          }
           
           // 3. Save the UID in the browser's Local Storage
           window.localStorage.setItem('wromo_uid', userUid);
+          window.localStorage.setItem('wromo_email', userEmail);
+          window.localStorage.setItem('wromo_name', userName);
           
           // Clear the temporary email used for login
           window.localStorage.removeItem('emailForSignIn');
