@@ -136,6 +136,8 @@ async function initFirebaseAuth() {
   const { initializeApp } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js");
   const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js");
 
+  const { getFirestore, doc, setDoc, getDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js");
+
   for (const node of nodes) {
     if (node.dataset.ready === "true") continue;
     node.dataset.ready = "true";
@@ -148,7 +150,7 @@ async function initFirebaseAuth() {
       const firebaseConfig = await configRes.json();
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-      
+      const db = getFirestore(app);
       const elements = createAuthMarkup(node);
 
       // Check if the user just returned from the email by clicking on the link
@@ -182,9 +184,33 @@ async function initFirebaseAuth() {
           window.localStorage.setItem('wromo_uid', userUid);
           window.localStorage.setItem('wromo_email', userEmail);
           window.localStorage.setItem('wromo_name', userName);
-          
           // Clear the temporary email used for login
           window.localStorage.removeItem('emailForSignIn');
+
+          // 4. Save the user profile in Firestore
+          // SAVING IN FIRESTORE (ISOLATED)
+          try {
+              const userRef = doc(db, "wromo_users", userUid);
+              const snap = await getDoc(userRef);
+              
+              if (!snap.exists()) {
+                  // This is the first time they're logging in! We're creating the profile from scratch.
+                  await setDoc(userRef, {
+                      uid: userUid,
+                      email: userEmail,
+                      name: userName, // We save the automatically extracted name
+                      lastSeen: serverTimestamp()
+                  });
+              } else {
+                  // We update ONLY lastSeen. We leave the Name and Picture intact!
+                  await setDoc(userRef, {
+                      lastSeen: serverTimestamp()
+                  }, { merge: true });
+              }
+          } catch (dbError) {
+              console.warn("Wromo Auth: Firestore is not enabled or network failed. Login will proceed.", dbError);
+          }
+          
           
           showMessage(elements, "Success! Redirecting...", "success");
           window.location.href = redirectUrl;

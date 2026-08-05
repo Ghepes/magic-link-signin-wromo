@@ -6,6 +6,12 @@ Signin with magic links by firebase on static page - widgets by wromo
 
 ## Important: auth-config.json : Strictly blocked to respond only on your domain!
 
+## v2.0.1
+Firestore - save data to firestore (Firestore Not active execute the login further without adding the data to firestore and only adding it to localstorage web).
+
+add version 2.0.1 to CDN links for attaching data in Firestore (Firestore is activated manually from the Firebase console).
+
+
 ## v2.0.0
 Add: 
 wromo_uid (ex: njVpw7D...)
