@@ -132,11 +132,11 @@ async function initFirebaseAuth() {
 
   injectStyles();
 
-  // Import Firebase Auth dynamically,  without build tools, using the new version 12.14.0
-  const { initializeApp } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js");
-  const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js");
+  // Import Firebase Auth dynamically,  without build tools, using the new version 12.14.0 -> 13.1.0
+  const { initializeApp } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js");
+  const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js");
 
-  const { getFirestore, doc, setDoc, getDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js");
+  const { getFirestore, doc, setDoc, getDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js");
 
   for (const node of nodes) {
     if (node.dataset.ready === "true") continue;
