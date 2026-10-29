@@ -21,7 +21,7 @@ wromo_email (ex: julian.xyz@gmail.com)
 wromo_name (ex: Julian.xyz)
 
 This is automatically collected DATA by the login logic via Magic Links upon return, and attached to local storage. This way you can recall this NAME to be saved in Firebase/Firestore Data!
-" These named data entries in local storage are added as an extra aid to make it easier to connect specific design modules within the website. This has nothing to do with weakening Firebase authentication; Firebase remains completely isolated via "magic link" emails. "
+" These named data entries in local storage are added as an extra aid to make it easier to connect specific design modules within the website. This has nothing to do with weakening Firebase authentication; Firebase remains completely isolated via "magic link" emails. "  Regarding data separation: whether it concerns Storage or Firestore, the primary level of data separation for users is achieved by adding `/[WROMO_UID]/...` as the first folder. By using `/[WROMO_UID]/...` when submitting data, you ensure that information is separated for signed-in users.
 
 wromo_uid, 
 wromo_email, 
